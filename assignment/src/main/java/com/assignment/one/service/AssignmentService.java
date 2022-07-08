@@ -23,6 +23,7 @@ public class AssignmentService {
 
 	public Map  findValue(Integer categoryCode) {
 		
+		output = new HashMap();
 		Integer value = 0;
 		 assignment = assignmentRepository.findValueByCategoryCode(categoryCode);
 		if(assignment != null)
@@ -30,7 +31,16 @@ public class AssignmentService {
 			value = assignment.getValue();
 		if(value>0)
 			updateValue(value);
+		else
+		{
+			output.put("no result", 0);
 		}
+		}
+		else
+		{
+			output.put("no result", 0);
+		}
+		
 		return output;
 	}
 
@@ -42,11 +52,11 @@ public class AssignmentService {
 		
 		 oldValue=value;
 		 output.put("oldValue", value);
-		 valueToBeAdded = 10-findSumOfDigits(value);
-		 newValue = value+valueToBeAdded;
+		 newValue = findSmallestNextNumber(value);
 		 output.put("newValue", newValue);
-		 
+		 if(newValue>oldValue)
 		 updateDatabase();
+			 
 	
 	}
 
@@ -59,16 +69,28 @@ public class AssignmentService {
 		
 	}
 
-	private Integer findSumOfDigits(Integer value) {
-		 Integer sum =0;
+	private Integer findSmallestNextNumber(Integer value) {
+		Integer number = value;
+		for(int j = 1; j<10; j++)
+		 {
+			 value = number + j;
+			 System.out.println("value =="+value);
+			 if(findSumOfDigits(value)==10 || findSumOfDigits(value)==1)
+				 return value;
+				 
+		 }
+		 return 0;
+	}
+
+	Integer findSumOfDigits(Integer value)
+	{
+		Integer sum = 0;
 		 while(value > 0)
 		 {
 			 sum = sum+value%10;
 			 value = value/10;
 		 }
-		 
-		return sum;
+		 System.out.println("sum is +"+ sum);
+		 	return sum;
 	}
-
-	
 }
