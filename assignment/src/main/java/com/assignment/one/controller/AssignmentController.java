@@ -24,7 +24,7 @@ public class AssignmentController {
 	AssignmentService assignmentService;
 	
 	@PostMapping("/FetchNextNumber")
-	public ResponseEntity<?> fetchNextNumber(@RequestBody Assignment assignment) {
+	public ResponseEntity<?> fetchNextNumber(@RequestBody Assignment assignment) throws InterruptedException {
 		
 		Map output = new LinkedHashMap();
 		if(assignment.getCategoryCode()!=null) {

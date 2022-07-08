@@ -21,7 +21,7 @@ public class AssignmentService {
 	@Autowired
 	AssignmentRepository assignmentRepository;
 
-	public Map  findValue(Integer categoryCode) {
+	public Map  findValue(Integer categoryCode) throws InterruptedException {
 		
 		output = new HashMap();
 		Integer value = 0;
@@ -44,12 +44,13 @@ public class AssignmentService {
 		return output;
 	}
 
-	private void updateValue(Integer value) {
+	private void updateValue(Integer value) throws InterruptedException {
 		
 		output=new HashMap();
 		
 		 oldValue=value;
 		 output.put("oldValue", value);
+		 Thread.sleep(5000);
 		 newValue = findSmallestNextNumber(value);
 		 output.put("newValue", newValue);
 		 if(newValue>oldValue)
