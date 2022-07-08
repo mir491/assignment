@@ -46,8 +46,6 @@ public class AssignmentService {
 
 	private void updateValue(Integer value) {
 		
-		Integer sumOfDigits=0;
-		Integer valueToBeAdded = 0;
 		output=new HashMap();
 		
 		 oldValue=value;
